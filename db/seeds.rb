@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Discipline.create(description: 'Computer Engineering')
+Discipline.create(description: 'Computer Science')
+Discipline.create(description: 'Electrical Engineering')
+Discipline.create(description: 'Physics')
+Discipline.create(description: 'Astronomy')
+Discipline.create(description: 'Mathematics')
+Discipline.create(description: 'Biology')
+Discipline.create(description: 'Chemistry')
+Discipline.create(description: 'Economics')
