@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_09_10_184604) do
     t.integer "discipline_id", null: false
     t.string "area"
     t.float "price"
-    t.boolean "is_deleted"
+    t.boolean "is_deleted", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["discipline_id"], name: "index_courses_on_discipline_id"

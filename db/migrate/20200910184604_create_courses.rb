@@ -6,7 +6,7 @@ class CreateCourses < ActiveRecord::Migration[6.0]
       t.references :discipline, null: false, foreign_key: true
       t.string :area
       t.float :price
-      t.boolean :is_deleted
+      t.boolean :is_deleted, default: false
 
       t.timestamps
     end
