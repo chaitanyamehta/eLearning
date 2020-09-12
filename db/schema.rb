@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_10_184604) do
+ActiveRecord::Schema.define(version: 2020_09_11_232011) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string "name"
+    t.string "phone_number"
+    t.string "address"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "courses", force: :cascade do |t|
     t.string "course_number"
@@ -31,5 +39,28 @@ ActiveRecord::Schema.define(version: 2020_09_10_184604) do
     t.index ["description"], name: "index_disciplines_on_description", unique: true
   end
 
+  create_table "teachers", force: :cascade do |t|
+    t.string "name"
+    t.string "phone_number"
+    t.string "address"
+    t.boolean "is_deleted", default: false
+    t.integer "discipline_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["discipline_id"], name: "index_teachers_on_discipline_id"
+  end
+
+  create_table "user_auths", force: :cascade do |t|
+    t.string "email"
+    t.string "password_digest"
+    t.string "authenticable_type"
+    t.integer "authenticable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["authenticable_type", "authenticable_id"], name: "index_user_auths_on_authenticable_type_and_authenticable_id"
+    t.index ["email"], name: "index_user_auths_on_email", unique: true
+  end
+
   add_foreign_key "courses", "disciplines"
+  add_foreign_key "teachers", "disciplines"
 end
