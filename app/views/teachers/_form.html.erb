@@ -17,20 +17,7 @@
   </div>
 
   <%= form.fields_for :user_auth do |user_auth_form| %>
-    <div class="field">
-      <%= user_auth_form.label :email %>
-      <%= user_auth_form.text_field :email %>
-    </div>
-
-    <div class="field">
-      <%= user_auth_form.label :password %>
-      <%= user_auth_form.password_field :password %>
-    </div>
-
-    <div class="field">
-      <%= user_auth_form.label :password_confirmation %>
-      <%= user_auth_form.password_field :password_confirmation %>
-    </div>
+    <%= render './user_auths/form_fields', form: user_auth_form %>
   <% end %>
   
   <div class="field">
