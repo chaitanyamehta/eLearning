@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_11_232011) do
+ActiveRecord::Schema.define(version: 2020_09_12_192432) do
 
   create_table "admins", force: :cascade do |t|
     t.string "name"
@@ -39,12 +39,23 @@ ActiveRecord::Schema.define(version: 2020_09_11_232011) do
     t.index ["description"], name: "index_disciplines_on_description", unique: true
   end
 
+  create_table "students", force: :cascade do |t|
+    t.string "name"
+    t.string "phone_number"
+    t.string "address"
+    t.integer "major_id", null: false
+    t.boolean "is_deleted", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["major_id"], name: "index_students_on_major_id"
+  end
+
   create_table "teachers", force: :cascade do |t|
     t.string "name"
     t.string "phone_number"
     t.string "address"
-    t.boolean "is_deleted", default: false
     t.integer "discipline_id", null: false
+    t.boolean "is_deleted", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["discipline_id"], name: "index_teachers_on_discipline_id"
@@ -62,5 +73,6 @@ ActiveRecord::Schema.define(version: 2020_09_11_232011) do
   end
 
   add_foreign_key "courses", "disciplines"
+  add_foreign_key "students", "disciplines", column: "major_id"
   add_foreign_key "teachers", "disciplines"
 end
