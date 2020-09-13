@@ -14,3 +14,6 @@ Discipline.create(description: 'Mathematics')
 Discipline.create(description: 'Biology')
 Discipline.create(description: 'Chemistry')
 Discipline.create(description: 'Economics')
+
+params = {name: "Administrator", user_auth_attributes: {email: "admin@admin.com", password: "admin", password_confirmation: "admin"}, phone_number: "919-999-9999", address: "NC State University, Raleigh, NC"}
+Admin.create(params)

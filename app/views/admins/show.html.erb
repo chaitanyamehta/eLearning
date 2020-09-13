@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @admin.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @admin.user_auth.email %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @admin.phone_number %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @admin.address %>
+</p>
+
+<%= link_to 'Edit', edit_admin_path(@admin) %>
