@@ -1,6 +1,7 @@
 class Teacher < User
   belongs_to :discipline
   has_many :sections
+  has_many :courses, through: :sections
   has_many :feedbacks, through: :sections
 
   def mark_deleted
