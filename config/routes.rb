@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :purchases
   resources :credit_cards
   resources :carts
   resources :sections, only: [:index, :new, :create]

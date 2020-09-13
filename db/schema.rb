@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_063852) do
+ActiveRecord::Schema.define(version: 2020_09_13_064558) do
 
   create_table "admins", force: :cascade do |t|
     t.string "name"
@@ -66,6 +66,16 @@ ActiveRecord::Schema.define(version: 2020_09_13_063852) do
     t.index ["description"], name: "index_disciplines_on_description", unique: true
   end
 
+  create_table "purchases", force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.integer "section_id", null: false
+    t.float "price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["section_id"], name: "index_purchases_on_section_id"
+    t.index ["student_id"], name: "index_purchases_on_student_id"
+  end
+
   create_table "sections", force: :cascade do |t|
     t.integer "course_id", null: false
     t.integer "teacher_id", null: false
@@ -113,6 +123,8 @@ ActiveRecord::Schema.define(version: 2020_09_13_063852) do
   add_foreign_key "carts", "students"
   add_foreign_key "courses", "disciplines"
   add_foreign_key "credit_cards", "students"
+  add_foreign_key "purchases", "sections"
+  add_foreign_key "purchases", "students"
   add_foreign_key "sections", "courses"
   add_foreign_key "sections", "teachers"
   add_foreign_key "students", "disciplines", column: "major_id"

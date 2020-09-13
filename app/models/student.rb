@@ -4,7 +4,8 @@ class Student < ApplicationRecord
   accepts_nested_attributes_for :user_auth, update_only: true
   has_one :credit_card
   has_one :cart
-
+  has_many :purchases
+  
   def mark_deleted
     update_attribute(:is_deleted, true)
     user_auth.destroy
