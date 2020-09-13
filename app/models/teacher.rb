@@ -3,6 +3,7 @@ class Teacher < ApplicationRecord
   has_one :user_auth, as: :authenticable
   accepts_nested_attributes_for :user_auth, update_only: true
   has_many :sections
+  has_many :feedbacks, through: :sections
 
   def mark_deleted
     update_attribute(:is_deleted, true)

@@ -5,7 +5,8 @@ class Student < ApplicationRecord
   has_one :credit_card
   has_one :cart
   has_many :purchases
-  
+  has_many :feedbacks
+
   def mark_deleted
     update_attribute(:is_deleted, true)
     user_auth.destroy
