@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :carts
   resources :sections, only: [:index, :new, :create]
   resources :sessions, only: [:create]
   get 'signup', to: 'students#new', as: 'signup'
