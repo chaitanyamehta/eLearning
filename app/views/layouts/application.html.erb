@@ -10,8 +10,8 @@
   </head>
 
   <body>
-    <% if current_user %>
-      Logged in as <%= current_user.user_auth.email %>. | <%= link_to "Log Out", logout_path %>
+    <% if current_user_auth %>
+      Logged in as <%= current_user_auth.email %>. | <%= link_to "Log Out", logout_path %>
     <% end %>
     
     <%= yield %>

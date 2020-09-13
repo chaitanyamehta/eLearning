@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: 'logout'
   resources :students
   resources :teachers
-  resources :admins
+  resources :admins, only: [:show, :edit, :update]
   resources :courses
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 

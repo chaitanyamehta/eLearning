@@ -16,6 +16,12 @@
     <%= form.text_field :name %>
   </div>
 
+  <p>
+    Email 
+    <br>
+    <%= @admin.user_auth.email %>
+  </p>
+
   <div class="field">
     <%= form.label :phone_number %>
     <%= form.text_field :phone_number %>
@@ -23,7 +29,7 @@
 
   <div class="field">
     <%= form.label :address %>
-    <%= form.text_field :address %>
+    <%= form.text_area :address %>
   </div>
 
   <div class="actions">

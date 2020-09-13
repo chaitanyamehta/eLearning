@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user
+  helper_method :current_user_auth
 
-  def current_user
+  def current_user_auth
     if session[:user_auth_id]
-      @current_user ||= UserAuth.find(session[:user_auth_id]).authenticable
+      @current_user_auth ||= UserAuth.find(session[:user_auth_id])
     else
-      @current_user = nil
+      @current_user_auth = nil
     end
   end
 end

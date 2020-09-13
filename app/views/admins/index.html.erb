@@ -6,9 +6,10 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Email</th>
       <th>Phone number</th>
       <th>Address</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -16,16 +17,12 @@
     <% @admins.each do |admin| %>
       <tr>
         <td><%= admin.name %></td>
+        <td><%= admin.user_auth.email %></td>
         <td><%= admin.phone_number %></td>
         <td><%= admin.address %></td>
         <td><%= link_to 'Show', admin %></td>
         <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
-        <td><%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Admin', new_admin_path %>

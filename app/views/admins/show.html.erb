@@ -6,6 +6,11 @@
 </p>
 
 <p>
+  <strong>Email:</strong>
+  <%= @admin.user_auth.email %>
+</p>
+
+<p>
   <strong>Phone number:</strong>
   <%= @admin.phone_number %>
 </p>
@@ -15,5 +20,4 @@
   <%= @admin.address %>
 </p>
 
-<%= link_to 'Edit', edit_admin_path(@admin) %> |
-<%= link_to 'Back', admins_path %>
+<%= link_to 'Edit', edit_admin_path(@admin) %>
