@@ -1,7 +1,5 @@
-class Teacher < ApplicationRecord
+class Teacher < User
   belongs_to :discipline
-  has_one :user_auth, as: :authenticable
-  accepts_nested_attributes_for :user_auth, update_only: true
   has_many :sections
   has_many :feedbacks, through: :sections
 

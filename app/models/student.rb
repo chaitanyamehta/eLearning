@@ -1,7 +1,5 @@
-class Student < ApplicationRecord
+class Student < User
   belongs_to :major, class_name: :Discipline, foreign_key: :major_id
-  has_one :user_auth, as: :authenticable
-  accepts_nested_attributes_for :user_auth, update_only: true
   has_one :credit_card
   has_one :cart
   has_many :purchases
