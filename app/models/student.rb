@@ -3,6 +3,8 @@ class Student < User
   has_one :credit_card
   has_one :cart
   has_many :purchases
+  has_many :sections, through: :purchases
+  has_many :courses, through: :sections
   has_many :feedbacks
 
   def mark_deleted

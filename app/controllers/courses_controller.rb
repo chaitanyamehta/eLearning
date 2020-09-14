@@ -4,7 +4,16 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.active_courses
+    if current_user_type == 'Teacher'
+      @teacher = current_user
+      @courses = Course.active_courses.where(discipline_id: @teacher.discipline_id)
+    elsif current_user_type == 'Student'
+      @student = current_user
+      @courses = Course.active_courses.where(discipline_id: @student.major_id)
+    elsif current_user_type == 'Admin'
+      @courses = Course.active_courses
+    end
+    render "courses/index/#{current_user_type.downcase}"
   end
 
   # GET /courses/1
