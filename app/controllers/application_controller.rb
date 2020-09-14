@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :require_login
   helper_method :current_user_auth
 
   def current_user_auth
@@ -27,4 +28,7 @@ class ApplicationController < ActionController::Base
     !current_user_auth.nil?
   end
 
+  def require_login
+    redirect_to login_url unless logged_in?
+  end
 end
