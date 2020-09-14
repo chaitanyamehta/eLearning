@@ -7,14 +7,12 @@ class SessionsController < ApplicationController
     if user_auth && user_auth.authenticate(params[:password])
       session[:user_auth_id] = user_auth.id
       #byebug
-      if current_user == "admin"
+      if current_user_type == "Admin"
         redirect_to admin_home_url
-      elsif current_user == "student"
+      elsif current_user_type == "Student"
         redirect_to student_home_url
-      elsif current_user == "teacher"
+      elsif current_user_type == "Teacher"
         redirect_to teacher_home_url
-      else
-        redirect_to courses_url
       end
     else
       flash.now[:alert] = "Entered email or password is invalid"
