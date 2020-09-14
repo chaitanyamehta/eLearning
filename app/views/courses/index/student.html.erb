@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Courses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Course number</th>
+      <th>Name</th>
+      <th>Discipline</th>
+      <th>Area</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td><%= course.course_number %></td>
+        <td><%= course.name %></td>
+        <td><%= course.discipline.description %></td>
+        <td><%= course.area %></td>
+        <td><%= course.price %></td>
+        <td>
+          <% if @student.courses.any? {|c| c.id == course.id } %>
+            <strong>Enrolled</strong>
+          <% else %>
+            <%# <%= link_to 'Add to Cart' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
