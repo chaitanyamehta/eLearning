@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   resources :teachers
   resources :admins, only: [:show, :edit, :update]
   resources :courses
+  get 'admin_home', to: 'static_pages#admin', as: 'admin_home'
+  get 'teacher_home', to: 'static_pages#teacher', as: 'teacher_home'
+  get 'student_home', to: 'static_pages#student', as: 'student_home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   root "courses#index"
