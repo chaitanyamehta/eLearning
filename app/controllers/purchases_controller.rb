@@ -14,6 +14,7 @@ class PurchasesController < ApplicationController
 
   # GET /purchases/new
   def new
+    #@section = Section.find(params[:section_id])
     @purchase = Purchase.new
   end
 
@@ -24,16 +25,24 @@ class PurchasesController < ApplicationController
   # POST /purchases
   # POST /purchases.json
   def create
-    @purchase = Purchase.new(purchase_params)
+    current_user.cart.cart_items.each do |cart_item|
 
-    respond_to do |format|
-      if @purchase.save
-        format.html { redirect_to @purchase, notice: 'Purchase was successfully created.' }
-        format.json { render :show, status: :created, location: @purchase }
-      else
-        format.html { render :new }
-        format.json { render json: @purchase.errors, status: :unprocessable_entity }
+      @purchase = current_user.purchases.build(purchase_params)
+      @purchase.student = current_user
+      @purchase.section = cart_item.section
+      @purchase.price = cart_item.section.course.price
+      @err = @purchase.save
+      unless @err
+        respond_to do |format|
+          format.html { render :new }
+          format.json { render json: @purchase.errors, status: :unprocessable_entity }
+        end
       end
+      cart_item.destroy
+    end
+    respond_to do |format|
+        format.html { redirect_to '/purchases', notice: 'Purchase was successfully created.' }
+        format.json { render :show, status: :created, location: @purchase }
     end
   end
 
@@ -69,6 +78,6 @@ class PurchasesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def purchase_params
-      params.require(:purchase).permit(:student_id, :section_id, :price)
+      params.permit(:student_id, :section_id, :price)
     end
 end

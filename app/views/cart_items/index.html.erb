@@ -27,6 +27,7 @@
   </tbody>
 </table>
 <%= link_to 'Clear Cart', clear_cart_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Checkout', new_purchase_path, data: { confirm: 'Are you sure?' } %>
 <% else %>
 <p>Your cart is empty.</p>
 <% end%>
