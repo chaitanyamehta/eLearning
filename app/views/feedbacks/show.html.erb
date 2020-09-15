@@ -1,19 +1,21 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>Teacher:</strong>
+  <%= @feedback.section.teacher.name %>
+</p>
+
+<p>
+  <strong>Course:</strong>
+  <%= "#{@feedback.section.course.name} (#{@feedback.section.course.course_number})" %>
+</p>
+
+<p>
+  <strong>Feedback:</strong>
   <%= @feedback.description %>
 </p>
 
-<p>
-  <strong>Section:</strong>
-  <%= @feedback.section_id %>
-</p>
-
-<p>
-  <strong>Student:</strong>
-  <%= @feedback.student_id %>
-</p>
-
+<% if current_user_type == 'Student' %>
 <%= link_to 'Edit', edit_feedback_path(@feedback) %> |
+<% end %>
 <%= link_to 'Back', feedbacks_path %>

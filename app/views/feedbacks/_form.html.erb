@@ -12,18 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
+    <%= form.label :section_id, 'Select Teacher' %>
+    <%= form.select('section_id', @student.sections.collect {|x| ["#{x.teacher.name} (#{x.course.course_number})", x.id]}) %>
   </div>
 
   <div class="field">
-    <%= form.label :section_id %>
-    <%= form.text_field :section_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :student_id %>
-    <%= form.text_field :student_id %>
+    <%= form.label :description, 'Feedback' %>
+    <%= form.text_area :description %>
   </div>
 
   <div class="actions">
