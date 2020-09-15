@@ -7,9 +7,14 @@ class Student < User
   has_many :courses, through: :sections
   has_many :feedbacks
 
+  after_create do |s|
+    Cart.create(student_id: s.id)
+  end
+
   def mark_deleted
     update_attribute(:is_deleted, true)
     user_auth.destroy
+    cart.destroy
   end
 
   def self.active_students
