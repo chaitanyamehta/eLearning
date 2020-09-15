@@ -9,6 +9,7 @@
       <th>Address</th>
       <th>Major</th>
       <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -23,6 +24,7 @@
         <td><%= link_to 'Show', student %></td>
         <td><%= link_to 'Edit', edit_student_path(student) %></td>
         <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= button_to 'Impersonate', impersonate_path, params: { user_auth_id: student.user_auth.id }, method: :post %></td>
       </tr>
     <% end %>
   </tbody>
