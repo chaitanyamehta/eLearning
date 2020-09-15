@@ -1,4 +1,4 @@
-<%= form_with(model: purchase, local: true) do |form| %>
+<%= form_with(model: [@student, @purchase], local: true) do |form| %>
   <% if purchase.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(purchase.errors.count, "error") %> prohibited this purchase from being saved:</h2>
@@ -10,23 +10,33 @@
       </ul>
     </div>
   <% end %>
+  <% if current_user.cart.cart_items.any? %>
+    <table>
+      <thead>
+      <tr>
+        <th>Course Number</th>
+        <th>Course Name</th>
+        <th>Section</th>
+        <th>Teacher</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+      </thead>
 
-  <div class="field">
-    <%= form.label :student_id %>
-    <%= form.text_field :student_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :section_id %>
-    <%= form.text_field :section_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+        <tbody>
+        <% current_user.cart.cart_items.each do |cart_item| %>
+          <tr>
+            <td><%= cart_item.section.course.course_number %></td>
+            <td><%= cart_item.section.course.name %></td>
+            <td><%= cart_item.section_id %></td>
+            <td><%= cart_item.section.teacher.name %></td>
+            <td><%= cart_item.section.course.price %></td>
+          </tr>
+        <% end %>
+        </tbody>
+    </table>
+      <div class="actions">
+        <%= form.submit 'Purchase' %>
+      </div>
+  <% end %>
 <% end %>

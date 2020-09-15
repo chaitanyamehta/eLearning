@@ -14,10 +14,13 @@ Rails.application.routes.draw do
   resources :courses do
     get 'add_to_cart', to: 'cart_items#new', as: 'add_to_cart'
   end
+  resources :cart_items do
+    get 'checkout', to: 'purchases#new', as: 'checkout'
+  end
   delete 'cart_items/clear', to: 'cart_items#clear', as: 'clear_cart'
   resources :cart_items, only: [:create, :destroy]
   get 'cart', to: 'cart_items#index', as: 'cart'
-  post 'checkout', to: 'cart_items#checkout', as: 'checkout'
+  #get 'checkout', to: 'cart_items#checkout', as: 'checkout'
   get 'home', to: 'static_pages#home', as: 'home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
