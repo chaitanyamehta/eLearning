@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Feedbacks</h1>
 
 <table>
@@ -9,7 +7,7 @@
       <th>Course</th>
       <th>Feedback</th>
       <th></th>
-      <% if current_user_type == 'Student' %>
+      <% if is_student? %>
       <th colspan="2"></th>
       <% end %>
     </tr>
@@ -22,7 +20,7 @@
         <td><%= "#{feedback.section.course.name} (#{feedback.section.course.course_number})" %></td>
         <td><%= feedback.description %></td>
         <td><%= link_to 'Show', feedback %></td>
-        <% if current_user_type == 'Student' %>
+        <% if is_student? %>
         <td><%= link_to 'Edit', edit_feedback_path(feedback) %></td>
         <td><%= link_to 'Destroy', feedback, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
@@ -31,7 +29,7 @@
   </tbody>
 </table>
 
-<% if current_user_type == 'Student' %>
+<% if is_student? %>
 <br>
 <%= link_to 'New Feedback', new_feedback_path %>
 <% end %>

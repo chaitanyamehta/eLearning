@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @teacher.name %>
@@ -27,5 +25,7 @@
   <%= @teacher.discipline.description %>
 </p>
 
-<%= link_to 'Edit', edit_teacher_path(@teacher) %> |
-<%= link_to 'Back', teachers_path %>
+<%= link_to 'Edit', edit_teacher_path(@teacher) %>
+<% if is_admin? %>
+  | <%= link_to 'Back', teachers_path %>
+<% end %>

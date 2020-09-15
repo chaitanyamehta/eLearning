@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
   resources :feedbacks
   resources :purchases
-  resources :sections, only: [:index, :show, :new, :create]
+  resources :sections, only: [:index, :show, :new, :create] do
+    get 'students', to: 'students#section_students', as: 'students'
+  end
   resources :sessions, only: [:create]
   get 'signup', to: 'students#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
-  resources :students do
-    resources :credit_cards, only: [:show, :new, :create, :edit, :update, :destroy]
-  end
+  resources :students
+  resources :credit_cards, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :teachers
   resources :admins, only: [:show, :edit, :update]
   resources :courses do

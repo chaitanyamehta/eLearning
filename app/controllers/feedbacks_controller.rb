@@ -5,7 +5,7 @@ class FeedbacksController < ApplicationController
   # GET /feedbacks
   # GET /feedbacks.json
   def index
-    if current_user_type == 'Admin'
+    if is_admin?
       @feedbacks = Feedback.all
     else
       @feedbacks = current_user.feedbacks;

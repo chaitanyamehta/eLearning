@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Teacher:</strong>
   <%= @feedback.section.teacher.name %>
@@ -15,7 +13,7 @@
   <%= @feedback.description %>
 </p>
 
-<% if current_user_type == 'Student' %>
+<% if is_student? %>
 <%= link_to 'Edit', edit_feedback_path(@feedback) %> |
 <% end %>
 <%= link_to 'Back', feedbacks_path %>

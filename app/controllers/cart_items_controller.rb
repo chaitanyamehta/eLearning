@@ -1,4 +1,5 @@
 class CartItemsController < ApplicationController
+  before_action :require_student
   before_action :set_cart_item, only: [:destroy]
   
   # GET /cart

@@ -1,16 +1,17 @@
 class CoursesController < ApplicationController
+  before_action :require_admin, except: [:index, :show]
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
   # GET /courses
   # GET /courses.json
   def index
-    if current_user_type == 'Teacher'
+    if is_teacher?
       @teacher = current_user
       @courses = Course.active_courses.where(discipline_id: @teacher.discipline_id)
-    elsif current_user_type == 'Student'
+    elsif is_student?
       @student = current_user
       @courses = Course.active_courses.where(discipline_id: @student.major_id)
-    elsif current_user_type == 'Admin'
+    elsif is_admin?
       @courses = Course.active_courses
     end
     render "courses/index/#{current_user_type.downcase}"
