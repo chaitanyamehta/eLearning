@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  NOT_AUTHORIZED = 'Not Authorized: Action could not be performed'
+
   before_action :require_login
   helper_method :current_user_auth
   helper_method :current_user
@@ -34,5 +36,17 @@ class ApplicationController < ActionController::Base
 
   def require_login
     redirect_to login_url unless logged_in?
+  end
+
+  def require_admin
+    redirect_to home_url, notice: NOT_AUTHORIZED unless current_user_type == 'Admin'
+  end
+
+  def require_teacher
+    redirect_to home_url, notice: NOT_AUTHORIZED unless current_user_type == 'Teacher'
+  end
+
+  def require_student
+    redirect_to home_url, notice: NOT_AUTHORIZED unless current_user_type == 'Student'
   end
 end
