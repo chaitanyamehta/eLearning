@@ -1,10 +1,15 @@
 class FeedbacksController < ApplicationController
+  before_action :set_student, only: [:new, :create, :edit, :update]
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
 
   # GET /feedbacks
   # GET /feedbacks.json
   def index
-    @feedbacks = Feedback.all
+    if current_user_type == 'Admin'
+      @feedbacks = Feedback.all
+    else
+      @feedbacks = current_user.feedbacks;
+    end
   end
 
   # GET /feedbacks/1
@@ -24,8 +29,7 @@ class FeedbacksController < ApplicationController
   # POST /feedbacks
   # POST /feedbacks.json
   def create
-    @feedback = Feedback.new(feedback_params)
-
+    @feedback = current_user.feedbacks.build(feedback_params)
     respond_to do |format|
       if @feedback.save
         format.html { redirect_to @feedback, notice: 'Feedback was successfully created.' }
@@ -63,12 +67,16 @@ class FeedbacksController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_student
+      @student = current_user
+    end
+
     def set_feedback
       @feedback = Feedback.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def feedback_params
-      params.require(:feedback).permit(:description, :section_id, :student_id)
+      params.require(:feedback).permit(:description, :section_id)
     end
 end

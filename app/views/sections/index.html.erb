@@ -8,6 +8,7 @@
       <th>Course Number</th>
       <th>Course Name</th>
       <th>Teacher</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -17,6 +18,7 @@
         <td><%= section.course.course_number %></td>
         <td><%= section.course.name %></td>
         <td><%= section.teacher.name %></td>
+        <td><%= link_to 'Show', section %></td>
       </tr>
     <% end %>
   </tbody>

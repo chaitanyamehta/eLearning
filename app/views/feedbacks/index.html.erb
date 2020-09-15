@@ -5,27 +5,33 @@
 <table>
   <thead>
     <tr>
-      <th>Description</th>
-      <th>Section</th>
-      <th>Student</th>
-      <th colspan="3"></th>
+      <th>Teacher</th>
+      <th>Course</th>
+      <th>Feedback</th>
+      <th></th>
+      <% if current_user_type == 'Student' %>
+      <th colspan="2"></th>
+      <% end %>
     </tr>
   </thead>
 
   <tbody>
     <% @feedbacks.each do |feedback| %>
       <tr>
+        <td><%= feedback.section.teacher.name %></td>
+        <td><%= "#{feedback.section.course.name} (#{feedback.section.course.course_number})" %></td>
         <td><%= feedback.description %></td>
-        <td><%= feedback.section_id %></td>
-        <td><%= feedback.student_id %></td>
         <td><%= link_to 'Show', feedback %></td>
+        <% if current_user_type == 'Student' %>
         <td><%= link_to 'Edit', edit_feedback_path(feedback) %></td>
         <td><%= link_to 'Destroy', feedback, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<% if current_user_type == 'Student' %>
 <br>
-
 <%= link_to 'New Feedback', new_feedback_path %>
+<% end %>

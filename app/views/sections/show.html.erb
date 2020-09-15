@@ -2,12 +2,12 @@
 
 <p>
   <strong>Course:</strong>
-  <%= @section.course_id %>
+  <%= "#{@section.course.name} (#{@section.course.course_number})" %>
 </p>
 
 <p>
   <strong>Teacher:</strong>
-  <%= @section.teacher_id %>
+  <%= @section.teacher.name %>
 </p>
 
 <%= link_to 'Back', sections_path %>
