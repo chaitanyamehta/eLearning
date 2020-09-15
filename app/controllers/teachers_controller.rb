@@ -1,4 +1,6 @@
 class TeachersController < ApplicationController
+  before_action :require_admin, except: [:show, :edit, :update]
+  before_action :require_admin_or_owner, only: [:show, :edit, :update]
   before_action :set_teacher, only: [:show, :edit, :update, :destroy]
 
   # GET /teachers
@@ -71,5 +73,11 @@ class TeachersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def teacher_params
       params.require(:teacher).permit(:name, :phone_number, :address, :discipline_id, user_auth_attributes: [:email, :password, :password_confirmation])
+    end
+
+    def require_admin_or_owner
+      unless is_admin? or (is_teacher? and current_user.id.to_s == params[:id])
+        redirect_to home_url, notice: NOT_AUTHORIZED
+      end
     end
 end

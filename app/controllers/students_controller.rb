@@ -1,5 +1,9 @@
 class StudentsController < ApplicationController
   skip_before_action :require_login, only: [:new, :create]
+  before_action :require_admin_or_teacher, only: [:index]
+  before_action :require_admin_teacher_or_owner, only: [:show]
+  before_action :require_admin_or_owner, only: [:edit, :update]
+  before_action :require_admin, only: [:destroy]
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   # GET /students
@@ -73,4 +77,21 @@ class StudentsController < ApplicationController
     def student_params
       params.require(:student).permit(:name, :phone_number, :address, :major_id, user_auth_attributes: [:email, :password, :password_confirmation])
     end
+
+    def is_owner?
+      is_student? and current_user.id.to_s == params[:id]
+    end
+
+    def require_admin_or_owner
+      unless is_admin? or is_owner?
+        redirect_to home_url, notice: NOT_AUTHORIZED
+      end
+    end
+
+    def require_admin_teacher_or_owner
+      unless is_admin? or is_teacher? or is_owner?
+        redirect_to home_url, notice: NOT_AUTHORIZED
+      end
+    end
+
 end

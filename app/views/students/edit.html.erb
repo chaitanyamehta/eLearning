@@ -11,5 +11,8 @@
 
 <br>
 
-<%= link_to 'Show', @student %> |
-<%= link_to 'Back', students_path %>
+<%= link_to 'Show', @student %>
+<% if is_admin? %>
+  | <%= link_to 'Back', students_path %>
+<% end %>
+

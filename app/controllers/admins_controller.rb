@@ -1,4 +1,5 @@
 class AdminsController < ApplicationController
+  before_action :require_admin
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
   # GET /admins
