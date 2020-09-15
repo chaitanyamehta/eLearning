@@ -30,10 +30,14 @@
     <%= form.text_area :address %>
   </div>
 
+  <% if teacher.new_record? %>
   <div class="field">
     <%= form.label :discipline_id %>
     <%= form.select("discipline_id", Discipline.all.collect {|x| [x.description, x.id]}) %>
   </div>
+  <% else %>
+    <p>Discipline<br><%= teacher.discipline.description %></p>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

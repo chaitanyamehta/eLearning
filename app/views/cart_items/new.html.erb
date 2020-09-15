@@ -1,0 +1,29 @@
+<h1>Add to Cart</h1>
+
+<% if  @cart_item.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@cart_item.errors.count, "error") %> prohibited this course from being added:</h2>
+
+    <ul>
+      <%  @cart_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if @course %>
+  <%= form_with(model: @cart_item, local: true) do |form| %>
+    <p>Course number<br><%= @course.course_number %></p>
+    <p>Course name<br><%= @course.name %></p>
+    <p>Price<br><%= @course.price %></p>
+
+    <div class="field">
+      <%= form.label :section_id, 'Select Teacher' %>
+      <%= form.select('section_id', @course.sections.collect {|x| [x.teacher.name, x.id]}) %>
+    </div>
+    <div class="actions">
+      <%= form.submit 'Add Course' %>
+    </div>
+  <% end %>
+<% end %>

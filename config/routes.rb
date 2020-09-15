@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   resources :feedbacks
   resources :purchases
-  resources :carts
   resources :sections, only: [:index, :show, :new, :create]
   resources :sessions, only: [:create]
   get 'signup', to: 'students#new', as: 'signup'
@@ -12,8 +11,14 @@ Rails.application.routes.draw do
   end
   resources :teachers
   resources :admins, only: [:show, :edit, :update]
-  resources :courses
-  get 'home', to: 'static_pages#home'
+  resources :courses do
+    get 'add_to_cart', to: 'cart_items#new', as: 'add_to_cart'
+  end
+  delete 'cart_items/clear', to: 'cart_items#clear', as: 'clear_cart'
+  resources :cart_items, only: [:create, :destroy]
+  get 'cart', to: 'cart_items#index', as: 'cart'
+  post 'checkout', to: 'cart_items#checkout', as: 'checkout'
+  get 'home', to: 'static_pages#home', as: 'home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   root "static_pages#home"

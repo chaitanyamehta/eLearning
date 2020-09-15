@@ -1,8 +1,9 @@
 <h1>This is the Admin home page</h1>
 <h2>Please select one of the pages below</h2>
 
-<%=link_to "Students", students_path %>
-<%=link_to "Teachers", teachers_path %>
-<%=link_to "Courses", courses_path %>
-<%=link_to "Purchases", "/purchases" %>
-<%=link_to "Feedback", "/feedbacks" %>
+<%=link_to 'Edit Profile', edit_admin_path(current_user.id) %>
+<%=link_to 'Students', students_path %>
+<%=link_to 'Teachers', teachers_path %>
+<%=link_to 'Courses', courses_path %>
+<%=link_to 'Purchases', purchases_path %>
+<%=link_to 'Feedback', feedbacks_path %>

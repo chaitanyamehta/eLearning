@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :require_login
   helper_method :current_user_auth
+  helper_method :current_user
 
   def current_user_auth
     if session[:user_auth_id]

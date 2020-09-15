@@ -1,6 +1,7 @@
 <h1>This is the Teacher home page</h1>
 <h2>Please select one of the pages below</h2>
 
-<%=link_to "Students", "/students" %>
-<%=link_to "Courses", courses_path %>
-<%=link_to "Feedback", "/feedbacks" %>
+<%=link_to 'Edit Profile', edit_teacher_path(current_user.id) %>
+<%=link_to 'Students', students_path %>
+<%=link_to 'Courses', courses_path %>
+<%=link_to 'Feedback', feedbacks_path %>
