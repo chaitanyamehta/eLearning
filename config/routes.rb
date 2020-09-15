@@ -14,9 +14,6 @@ Rails.application.routes.draw do
   resources :courses do
     get 'add_to_cart', to: 'cart_items#new', as: 'add_to_cart'
   end
-  resources :cart_items do
-    get 'checkout', to: 'purchases#new', as: 'checkout'
-  end
   delete 'cart_items/clear', to: 'cart_items#clear', as: 'clear_cart'
   resources :cart_items, only: [:create, :destroy]
   get 'cart', to: 'cart_items#index', as: 'cart'

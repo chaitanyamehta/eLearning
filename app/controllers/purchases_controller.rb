@@ -14,12 +14,7 @@ class PurchasesController < ApplicationController
 
   # GET /purchases/new
   def new
-    #@section = Section.find(params[:section_id])
     @purchase = Purchase.new
-  end
-
-  # GET /purchases/1/edit
-  def edit
   end
 
   # POST /purchases
@@ -27,7 +22,7 @@ class PurchasesController < ApplicationController
   def create
     current_user.cart.cart_items.each do |cart_item|
 
-      @purchase = current_user.purchases.build(purchase_params)
+      @purchase = current_user.purchases.build()
       @purchase.student = current_user
       @purchase.section = cart_item.section
       @purchase.price = cart_item.section.course.price
@@ -46,20 +41,6 @@ class PurchasesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /purchases/1
-  # PATCH/PUT /purchases/1.json
-  def update
-    respond_to do |format|
-      if @purchase.update(purchase_params)
-        format.html { redirect_to @purchase, notice: 'Purchase was successfully updated.' }
-        format.json { render :show, status: :ok, location: @purchase }
-      else
-        format.html { render :edit }
-        format.json { render json: @purchase.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /purchases/1
   # DELETE /purchases/1.json
   def destroy
@@ -74,10 +55,5 @@ class PurchasesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_purchase
       @purchase = Purchase.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def purchase_params
-      params.permit(:student_id, :section_id, :price)
     end
 end
