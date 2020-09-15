@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :feedbacks
   resources :purchases
-  resources :sections, only: [:index, :show, :new, :create]
+  resources :sections, only: [:index, :show, :new, :create] do
+    get 'students', to: 'students#section_students', as: 'students'
+  end
   resources :sessions, only: [:create]
   get 'signup', to: 'students#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'

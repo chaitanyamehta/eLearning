@@ -21,8 +21,10 @@
         <td><%= course.area %></td>
         <td><%= course.price %></td>
         <td>
-          <% if @teacher.courses.any? {|c| c.id == course.id } %>
-            <strong>Registered</strong>
+          <% section = @teacher.sections.find_by_course_id(course.id) %>
+          <% unless section.nil? %>
+            <strong>Registered</strong> |
+            <%= link_to 'View Students', section_students_path(section) %>
           <% else %>
             <%= button_to 'Register', sections_path, params: { section: {course_id: course.id, teacher_id: @teacher.id}}, method: :post %>
           <% end %>

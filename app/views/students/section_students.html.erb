@@ -1,0 +1,27 @@
+<h1>Students in <%= @section.course.course_number %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone number</th>
+      <th>Address</th>
+      <th>Major</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.name %></td>
+        <td><%= student.user_auth.email %></td>
+        <td><%= student.phone_number %></td>
+        <td><%= student.address %></td>
+        <td><%= student.major.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'back', courses_path %>

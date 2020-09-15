@@ -1,15 +1,19 @@
 class StudentsController < ApplicationController
   skip_before_action :require_login, only: [:new, :create]
-  before_action :require_admin_or_teacher, only: [:index]
-  before_action :require_admin_teacher_or_owner, only: [:show]
-  before_action :require_admin_or_owner, only: [:edit, :update]
-  before_action :require_admin, only: [:destroy]
+  before_action :require_admin, only: [:index, :destroy]
+  before_action :require_mentor, only: [:section_students]
+  before_action :require_admin_or_owner, only: [:show, :edit, :update]
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   # GET /students
   # GET /students.json
   def index
     @students = Student.active_students
+  end
+
+  # GET /section/section:id/students
+  def section_students
+    @students = @section.students.where(is_deleted: false)
   end
 
   # GET /students/1
@@ -94,4 +98,10 @@ class StudentsController < ApplicationController
       end
     end
 
+    def require_mentor
+      @section = Section.find(params[:section_id])
+      unless current_user.id == @section.teacher_id
+        redirect_to home_url, notice: NOT_AUTHORIZED
+      end
+    end
 end
