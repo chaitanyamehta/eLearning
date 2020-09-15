@@ -3,10 +3,10 @@
 <%= render 'form', student: @student %>
 
 <% unless @student.credit_card %>
-<%= link_to 'Add Credit Card', new_student_credit_card_path(@student) %>
+<%= link_to 'Add Credit Card', new_credit_card_path %>
 <% else %>
-<%= link_to 'Edit Credit Card', edit_student_credit_card_path(@student, @student.credit_card) %> |
-<%= link_to 'Delete Credit Card', [@student, @student.credit_card], method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Edit Credit Card', edit_credit_card_path(@student.credit_card) %> |
+<%= link_to 'Delete Credit Card', @student.credit_card, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
 
 <br>
