@@ -17,37 +17,27 @@ class PurchasesController < ApplicationController
     @purchase = Purchase.new
   end
 
-  # GET /purchases/1/edit
-  def edit
-  end
-
   # POST /purchases
   # POST /purchases.json
   def create
-    @purchase = Purchase.new(purchase_params)
+    current_user.cart.cart_items.each do |cart_item|
 
-    respond_to do |format|
-      if @purchase.save
-        format.html { redirect_to @purchase, notice: 'Purchase was successfully created.' }
-        format.json { render :show, status: :created, location: @purchase }
-      else
-        format.html { render :new }
-        format.json { render json: @purchase.errors, status: :unprocessable_entity }
+      @purchase = current_user.purchases.build()
+      @purchase.student = current_user
+      @purchase.section = cart_item.section
+      @purchase.price = cart_item.section.course.price
+      @err = @purchase.save
+      unless @err
+        respond_to do |format|
+          format.html { render :new }
+          format.json { render json: @purchase.errors, status: :unprocessable_entity }
+        end
       end
+      cart_item.destroy
     end
-  end
-
-  # PATCH/PUT /purchases/1
-  # PATCH/PUT /purchases/1.json
-  def update
     respond_to do |format|
-      if @purchase.update(purchase_params)
-        format.html { redirect_to @purchase, notice: 'Purchase was successfully updated.' }
-        format.json { render :show, status: :ok, location: @purchase }
-      else
-        format.html { render :edit }
-        format.json { render json: @purchase.errors, status: :unprocessable_entity }
-      end
+        format.html { redirect_to '/purchases', notice: 'Purchase was successfully created.' }
+        format.json { render :show, status: :created, location: @purchase }
     end
   end
 
@@ -65,10 +55,5 @@ class PurchasesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_purchase
       @purchase = Purchase.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def purchase_params
-      params.require(:purchase).permit(:student_id, :section_id, :price)
     end
 end
