@@ -48,7 +48,6 @@ class PurchasesController < ApplicationController
 
   # PATCH/PUT /purchases/1
   # PATCH/PUT /purchases/1.json
-=begin
   def update
     respond_to do |format|
       if @purchase.update(purchase_params)
@@ -60,7 +59,6 @@ class PurchasesController < ApplicationController
       end
     end
   end
-=end
 
   # DELETE /purchases/1
   # DELETE /purchases/1.json

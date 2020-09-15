@@ -34,22 +34,6 @@ class CartItemsController < ApplicationController
     redirect_to cart_url
   end
 
-=begin
-  def checkout
-    current_user.cart.cart_items.each do |cart_item|
-      @purchase = Purchase.new()
-      @purchase.student = @student
-      @purchase.section = cart_item.section
-
-      if @purchase.save
-        redirect_to @purchase, notice: 'Purchase was successfully created.'
-      else
-        redirect_to @purchase, notice: 'Purchase was unsuccessful.'
-      end
-    end
-  end
-=end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart_item
