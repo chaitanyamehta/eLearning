@@ -1,6 +1,7 @@
 class PurchasesController < ApplicationController
   before_action :require_student, only: [:index] 
   before_action :require_student_login, only: [:new, :create]
+  before_action :require_credit_card, only: [:new, :create]
   before_action :set_purchase, only: [:show, :destroy]
   before_action :require_owner, only: [:delete]
   before_action :require_admin_or_owner, only: [:show]
@@ -83,6 +84,12 @@ class PurchasesController < ApplicationController
     def require_admin_or_owner
       unless is_admin_login? or is_owner_logged_in?
         redirect_to home_url, notice: NOT_AUTHORIZED
+      end
+    end
+
+    def require_credit_card
+      if current_user.credit_card.nil?
+        redirect_to edit_student_url(current_user.id), notice: 'Need to add credit card to make purchase'
       end
     end
 end
