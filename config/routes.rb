@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'signup', to: 'students#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
+  post 'impersonate', to: 'sessions#impersonate', as: 'impersonate' 
+  post 'stop_impersonate', to: 'sessions#stop_impersonate', as: 'stop_impersonate' 
   resources :students
   resources :credit_cards, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :teachers

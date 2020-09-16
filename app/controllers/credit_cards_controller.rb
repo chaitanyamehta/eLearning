@@ -1,5 +1,5 @@
 class CreditCardsController < ApplicationController
-  before_action :require_student, only: [:new, :create]
+  before_action :require_student_login, only: [:new, :create]
   before_action :set_student, only: [:new, :create]
   before_action :set_credit_card, only: [:show, :edit, :update, :destroy]
   before_action :require_owner, only: [:show, :edit, :update, :destroy]
@@ -78,7 +78,7 @@ class CreditCardsController < ApplicationController
     end
 
     def require_owner
-      unless is_student? and current_user.id == @credit_card.student_id
+      unless is_student_login? and current_user.id == @credit_card.student_id
         redirect_to home_url, notice: NOT_AUTHORIZED
       end
     end
