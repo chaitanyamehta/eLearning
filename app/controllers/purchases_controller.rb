@@ -21,6 +21,7 @@ class PurchasesController < ApplicationController
   # POST /purchases.json
   def create
     @errors = []
+    @compiled = []
     current_user.cart.cart_items.each do |cart_item|
       @purchase = current_user.purchases.build()
       @purchase.student = current_user
@@ -29,6 +30,7 @@ class PurchasesController < ApplicationController
       unless @purchase.save
         @errors.append @purchase.errors
       else
+        @compiled.append @purchase
         cart_item.destroy
       end
     end
@@ -37,6 +39,7 @@ class PurchasesController < ApplicationController
       unless @errors.any?
         format.html { redirect_to purchases_url, notice: 'Purchase was successfully created.' }
         format.json { render :show, status: :created, location: purchases_url }
+        message = StudentMailer.purchase_email(current_user_auth, @compiled).deliver!
       else
         format.html { render :new  }
         format.json { render json: @errors, status: :unprocessable_entity }
