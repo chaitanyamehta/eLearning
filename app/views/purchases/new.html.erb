@@ -1,5 +1,19 @@
 <h1>New Purchase</h1>
 
+<% if @errors and @errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@errors.count, "error") %> prohibited this purchase from being saved:</h2>
+
+    <% @errors.each do |sub_error|%>
+      <ul>
+        <% sub_error.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+<% end %>
+
 <% if current_user.cart.cart_items.any? %>
   <table>
     <thead>
