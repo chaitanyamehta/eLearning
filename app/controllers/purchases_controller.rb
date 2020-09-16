@@ -20,24 +20,27 @@ class PurchasesController < ApplicationController
   # POST /purchases
   # POST /purchases.json
   def create
+    @errors = []
     current_user.cart.cart_items.each do |cart_item|
-
       @purchase = current_user.purchases.build()
       @purchase.student = current_user
       @purchase.section = cart_item.section
       @purchase.price = cart_item.section.course.price
-      @err = @purchase.save
-      unless @err
-        respond_to do |format|
-          format.html { render :new }
-          format.json { render json: @purchase.errors, status: :unprocessable_entity }
-        end
+      unless @purchase.save
+        @errors.append @purchase.errors
+      else
+        cart_item.destroy
       end
-      cart_item.destroy
     end
+    
     respond_to do |format|
-        format.html { redirect_to '/purchases', notice: 'Purchase was successfully created.' }
-        format.json { render :show, status: :created, location: @purchase }
+      unless @errors.any?
+        format.html { redirect_to purchases_url, notice: 'Purchase was successfully created.' }
+        format.json { render :show, status: :created, location: purchases_url }
+      else
+        format.html { render :new  }
+        format.json { render json: @errors, status: :unprocessable_entity }
+      end
     end
   end
 
