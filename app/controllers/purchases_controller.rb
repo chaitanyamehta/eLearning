@@ -1,5 +1,6 @@
 class PurchasesController < ApplicationController
-  before_action :require_student, only: [:index] 
+  before_action :require_student, only: [:index]
+  before_action :require_admin, only: [:student_purchases, :course_purchases]  
   before_action :require_student_login, only: [:new, :create]
   before_action :require_credit_card, only: [:new, :create]
   before_action :set_purchase, only: [:show, :destroy]
@@ -10,6 +11,18 @@ class PurchasesController < ApplicationController
   # GET /purchases.json
   def index
     @purchases = Purchase.where(student_id: current_user.id)
+  end
+
+  # GET students/:student_id/purchases
+  def student_purchases
+    @student = Student.find(params[:student_id])
+    @purchases = @student.purchases
+  end
+
+  # GET courses/:course_id/purchases
+  def course_purchases
+    @course = Course.find(params[:course_id])
+    @purchases = @course.purchases
   end
 
   # GET /purchases/1

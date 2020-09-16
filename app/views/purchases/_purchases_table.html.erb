@@ -1,0 +1,21 @@
+<table>
+  <thead>
+    <tr>
+      <th>Course Name</th>
+      <th>Course Number</th>
+      <th>Teacher</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @purchases.each do |purchase| %>
+      <tr>
+        <td><%= purchase.section.course.name %></td>
+        <td><%= purchase.section.course.course_number %></td>
+        <td><%= purchase.section.teacher.name %></td>
+        <td><%= purchase.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
