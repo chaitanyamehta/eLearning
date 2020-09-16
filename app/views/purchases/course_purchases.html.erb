@@ -1,0 +1,25 @@
+<h1>Purchases for <%= "#{@course.name} (#{@course.course_number})" %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Student Name</th>
+      <th>Student Id</th>
+      <th>Teacher</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @purchases.each do |purchase| %>
+      <tr>
+        <td><%= purchase.student.name %></td>
+        <td><%= purchase.student.id %></td>
+        <td><%= purchase.section.teacher.name %></td>
+        <td><%= purchase.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back', courses_path %>

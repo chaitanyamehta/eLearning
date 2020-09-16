@@ -10,12 +10,15 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: 'logout'
   post 'impersonate', to: 'sessions#impersonate', as: 'impersonate' 
   post 'stop_impersonate', to: 'sessions#stop_impersonate', as: 'stop_impersonate' 
-  resources :students
+  resources :students do
+    get 'purchases', to: 'purchases#student_purchases', as: 'purchases'
+  end
   resources :credit_cards, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :teachers
   resources :admins, only: [:show, :edit, :update]
   resources :courses do
     get 'add_to_cart', to: 'cart_items#new', as: 'add_to_cart'
+    get 'purchases', to: 'purchases#course_purchases', as: 'purchases'
   end
   delete 'cart_items/clear', to: 'cart_items#clear', as: 'clear_cart'
   resources :cart_items, only: [:create, :destroy]
