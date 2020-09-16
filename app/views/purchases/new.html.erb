@@ -1,5 +1,28 @@
 <h1>New Purchase</h1>
 
-<%= render 'form', purchase: @purchase %>
+<% if current_user.cart.cart_items.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Course Number</th>
+        <th>Course Name</th>
+        <th>Teacher</th>
+        <th>Price</th>
+      </tr>
+    </thead>
 
-<%= link_to 'Back', purchases_path %>
+    <tbody>
+      <% current_user.cart.cart_items.each do |cart_item| %>
+        <tr>
+          <td><%= cart_item.section.course.course_number %></td>
+          <td><%= cart_item.section.course.name %></td>
+          <td><%= cart_item.section.teacher.name %></td>
+          <td><%= cart_item.section.course.price %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= button_to 'Purchase', purchases_path, method: :post %>
+<% end %>
+
+<%= link_to 'Back', cart_path %>

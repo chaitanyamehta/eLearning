@@ -3,11 +3,11 @@
 <table>
   <thead>
     <tr>
+      <th>Student Id</th>
       <th>Student</th>
-      <th>Student ID</th>
       <th>Course Name</th>
       <th>Course Number</th>
-      <th>Section</th>
+      <th>Teacher</th>
       <th>Price</th>
       <th colspan="2"></th>
     </tr>
@@ -16,11 +16,11 @@
   <tbody>
     <% @purchases.each do |purchase| %>
       <tr>
+        <td><%= purchase.student.id %></td>
         <td><%= purchase.student.name %></td>
-        <td><%= purchase.student_id %></td>
         <td><%= purchase.section.course.name %></td>
         <td><%= purchase.section.course.course_number %></td>
-        <td><%= purchase.section_id %></td>
+        <td><%= purchase.section.teacher.name %></td>
         <td><%= purchase.price %></td>
         <td><%= link_to 'Show', purchase %></td>
         <td><%= link_to 'Destroy', purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
