@@ -88,6 +88,10 @@ class ApplicationController < ActionController::Base
     current_user_type == 'Student'
   end
 
+  def is_admin_login?
+    logged_in_user_type == 'Admin'
+  end
+
   def is_student_login?
     logged_in_user_type == 'Student'
   end

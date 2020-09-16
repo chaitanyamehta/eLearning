@@ -15,18 +15,16 @@
 
   <tbody>
     <% @purchases.each do |purchase| %>
-      <% if purchase.student == current_user %>
-        <tr>
-          <td><%= purchase.student.id %></td>
-          <td><%= purchase.student.name %></td>
-          <td><%= purchase.section.course.name %></td>
-          <td><%= purchase.section.course.course_number %></td>
-          <td><%= purchase.section.teacher.name %></td>
-          <td><%= purchase.price %></td>
-          <td><%= link_to 'Show', purchase %></td>
-          <td><%= link_to 'Destroy', purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
+      <tr>
+        <td><%= purchase.student.id %></td>
+        <td><%= purchase.student.name %></td>
+        <td><%= purchase.section.course.name %></td>
+        <td><%= purchase.section.course.course_number %></td>
+        <td><%= purchase.section.teacher.name %></td>
+        <td><%= purchase.price %></td>
+        <td><%= link_to 'Show', purchase %></td>
+        <td><%= link_to 'Destroy', purchase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>
