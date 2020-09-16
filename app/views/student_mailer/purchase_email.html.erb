@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Thank you for your recent purchase!</h1>
+    <p>
+      You have successfully purchased the following courses:
+    </p>
+    <table>
+      <thead>
+      <tr>
+        <th>Student</th>
+        <th>Course Name</th>
+        <th>Course Number</th>
+        <th>Teacher</th>
+        <th>Price</th>
+        <th colspan="2"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @compiled.each do |purchase| %>
+        <tr>
+          <td><%= purchase.student.name %></td>
+          <td><%= purchase.section.course.name %></td>
+          <td><%= purchase.section.course.course_number %></td>
+          <td><%= purchase.section.teacher.name %></td>
+          <td><%= purchase.price %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </body>
+</html>
