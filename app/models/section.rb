@@ -6,4 +6,8 @@ class Section < ApplicationRecord
   has_many :students, through: :purchases
 
   validates :course_id, uniqueness: { scope: :teacher_id }
+
+  def is_deleted
+    teacher.is_deleted or course.is_deleted
+  end
 end

@@ -5,6 +5,7 @@
       <th>Course Number</th>
       <th>Teacher</th>
       <th>Price</th>
+      <th>Date (UTC)</th>
     </tr>
   </thead>
 
@@ -15,6 +16,7 @@
         <td><%= purchase.section.course.course_number %></td>
         <td><%= purchase.section.teacher.name %></td>
         <td><%= purchase.price %></td>
+        <td><%= purchase.created_at.to_date %></td>
       </tr>
     <% end %>
   </tbody>
