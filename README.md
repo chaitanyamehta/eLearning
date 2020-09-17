@@ -2,7 +2,9 @@
 
 # README
 
-Initially, the application has one account created:  the Administrator.  Log in as the Administrator and navigate to "Teachers" from the home page.  Create as many teachers as needed.  Then return to "Home", navigate to "Courses", and create as many courses as needed.
+Initially, the application has one account created:  the Administrator.  Log in as the Administrator with the email "admin@admin.com" and the password "admin".
+
+Navigate to "Teachers" from the home page.  Create as many teachers as needed.  Then return to "Home", navigate to "Courses", and create as many courses as needed.
 
 To register teachers for courses, log in as each of the teacher accounts that were just ceated, navigate to "Courses" and click "Register" on all applicable courses.
 
