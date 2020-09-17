@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :feedbacks
   resources :purchases
-  resources :sections, only: [:index, :show, :new, :create] do
+  resources :sections, only: [:create] do
     get 'students', to: 'students#section_students', as: 'students'
   end
   resources :sessions, only: [:create]
@@ -27,4 +27,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   root "static_pages#home"
+
+  # If nothing matched route to home
+  match "*path", to: "static_pages#home", via: :all
 end

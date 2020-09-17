@@ -3,13 +3,13 @@ class Purchase < ApplicationRecord
   belongs_to :section
   
   validates :section_id, uniqueness: { scope: :student_id }
-  validate :course_is_not_deleted
+  validate :section_is_not_deleted
 
-  def course_is_not_deleted
+  def section_is_not_deleted
     if section.course.is_deleted
-      errors.add(:course, "has been deleted")
+      errors.add(:course, "#{section.course.course_number} has been deleted")
     elsif section.teacher.is_deleted
-      errors.add(:course, "is not being taught by teacher")
+      errors.add(:course, "is no longer being taught by #{section.teacher.name}")
     end
   end
 end
