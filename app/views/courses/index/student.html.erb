@@ -21,12 +21,14 @@
         <td><%= course.area %></td>
         <td><%= course.price %></td>
         <td>
-          <% if @student.courses.any? {|c| c.id == course.id } %>
+          <% if @student.enrolled_courses.any? {|c| c.id == course.id } %>
             <strong>Enrolled</strong>
           <% elsif @student.cart.courses.any? {|c| c.id == course.id } %>
             <strong>Added to cart</strong>
-          <% else %>
+          <% elsif course.sections.any? {|s| !s.is_deleted } %>
             <%= link_to 'Add to Cart', course_add_to_cart_path(course) %>
+          <% else %>
+            Unavailable
           <% end %>
         </td>
       </tr>
