@@ -7,7 +7,7 @@ class Course < ApplicationRecord
   validates :course_number, presence: true
   validates :name, presence: true
   validates :area, presence: true
-  validates :price, numericality: { greater_than: 0 }
+  validates :price, numericality: { greater_than_or_equal_to: 0 }
   validate :course_number_is_unique
 
   def mark_deleted
@@ -16,6 +16,10 @@ class Course < ApplicationRecord
 
   def self.active_courses
     self.where(is_deleted: false)
+  end
+
+  def active_sections
+    Section.joins(:teacher, :course).where('teachers.is_deleted': false, 'courses.id': id)
   end
 
   def course_number_is_unique

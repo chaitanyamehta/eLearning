@@ -20,7 +20,7 @@
 
     <div class="field">
       <%= form.label :section_id, 'Select Teacher' %>
-      <%= form.select('section_id', @course.sections.collect {|x| [x.teacher.name, x.id]}) %>
+      <%= form.select 'section_id', @course.active_sections.collect {|x| [x.teacher.name, x.id]}, { }, { required: true } %>
     </div>
     <div class="actions">
       <%= form.submit 'Add Course' %>
