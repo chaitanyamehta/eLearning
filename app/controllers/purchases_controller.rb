@@ -32,6 +32,8 @@ class PurchasesController < ApplicationController
 
   # GET /purchases/new
   def new
+    @password = 'password'
+    message = StudentMailer.otp_email(current_user_auth, @password).deliver!
     @purchase = Purchase.new
   end
 
