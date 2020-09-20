@@ -1,5 +1,5 @@
-<%= form_tag(complete_purchase_path, method: "post") do %>
-  <%= label_tag(:q, "Password:") %>
-  <%= text_field_tag(:q) %>
+<%= form_tag( purchases_path, method: "post") do %>
+  <%= label_tag(:otp, "Password:") %>
+  <%= text_field_tag(:otp) %>
   <%= submit_tag "Submit"%>
 <% end %>

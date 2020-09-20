@@ -24,8 +24,7 @@ Rails.application.routes.draw do
   resources :cart_items, only: [:create, :destroy]
   get 'cart', to: 'cart_items#index', as: 'cart'
   get 'home', to: 'static_pages#home', as: 'home'
-  post 'purchases/generate_otp', to: 'purchases#generate_otp', as:"generate"
-  post 'purchases/create', to: 'purchases#create', as:"complete_purchase"
+  post 'purchases/generate_otp', to: 'purchases#generate_otp', as:"generate_otp"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   root "static_pages#home"

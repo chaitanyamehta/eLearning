@@ -40,12 +40,12 @@ class PurchasesController < ApplicationController
   def create
     @errors = []
     @compiled = []
-    q = params[:q]
+    otp = params[:otp]
     totp = ROTP::TOTP.new(session[:secret_key])
     #Must be verified within 30 seconds
     respond_to do |format|
 
-      unless totp.verify(q).nil?
+      unless totp.verify(otp, drift_behind: 30).nil?
         current_user.cart.cart_items.each do |cart_item|
           @purchase = current_user.purchases.build()
           @purchase.student = current_user
