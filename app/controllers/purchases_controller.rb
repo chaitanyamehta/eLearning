@@ -32,8 +32,6 @@ class PurchasesController < ApplicationController
 
   # GET /purchases/new
   def new
-    @password = 'password'
-    message = StudentMailer.otp_email(current_user_auth, @password).deliver!
     @purchase = Purchase.new
   end
 
@@ -42,30 +40,40 @@ class PurchasesController < ApplicationController
   def create
     @errors = []
     @compiled = []
-    current_user.cart.cart_items.each do |cart_item|
-      @purchase = current_user.purchases.build()
-      @purchase.student = current_user
-      @purchase.section = cart_item.section
-      @purchase.price = cart_item.section.course.price
-      unless @purchase.save
-        @errors.append @purchase.errors
-      else
-        @compiled.append @purchase
-        cart_item.destroy
-      end
-    end
-    
-    if @compiled.any?
-      message = StudentMailer.purchase_email(current_user_auth, @compiled).deliver!
-    end
-
+    q = params[:q]
+    totp = ROTP::TOTP.new(session[:secret_key])
+    #Must be verified within 30 seconds
     respond_to do |format|
-      unless @errors.any?
-        format.html { redirect_to purchases_url, notice: 'Purchase was successfully created.' }
-        format.json { render :show, status: :created, location: purchases_url }
+
+      unless totp.verify(q).nil?
+        current_user.cart.cart_items.each do |cart_item|
+          @purchase = current_user.purchases.build()
+          @purchase.student = current_user
+          @purchase.section = cart_item.section
+          @purchase.price = cart_item.section.course.price
+          unless @purchase.save
+            @errors.append @purchase.errors
+          else
+            @compiled.append @purchase
+            cart_item.destroy
+          end
+        end
+
+        if @compiled.any?
+          message = StudentMailer.purchase_email(current_user_auth, @compiled).deliver!
+        end
+
+        unless @errors.any?
+          format.html { redirect_to purchases_url, notice: 'Purchase was successfully created.' }
+          format.json { render :show, status: :created, location: purchases_url }
+        else
+          format.html { render :new  }
+          format.json { render json: @errors, status: :unprocessable_entity }
+        end
+
       else
-        format.html { render :new  }
-        format.json { render json: @errors, status: :unprocessable_entity }
+        format.html { redirect_to cart_path, notice: 'Incorrect password.  Purchase declined.' }
+        format.json { head :no_content }
       end
     end
   end
@@ -78,6 +86,12 @@ class PurchasesController < ApplicationController
       format.html { redirect_to purchases_url, notice: 'Purchase was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def generate_otp
+    session[:secret_key] = ROTP::Base32.random
+    totp = ROTP::TOTP.new(session[:secret_key])
+    message = StudentMailer.otp_email(current_user_auth, totp.now).deliver!
   end
 
   private
