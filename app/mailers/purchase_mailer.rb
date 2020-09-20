@@ -1,4 +1,4 @@
-class StudentMailer < ApplicationMailer
+class PurchaseMailer < ApplicationMailer
   default from: 'testmailer489@gmail.com'
 
   def otp_email(user, password)
@@ -9,5 +9,11 @@ class StudentMailer < ApplicationMailer
   def purchase_email(user, compiled)
     @compiled = compiled
     mail(to: user.email, subject: 'Purchase Confirmation')
+  end
+
+  def enrollment_email(teacher, student, section)
+    @student = student
+    @section = section
+    mail(to: teacher.user_auth.email, subject: 'Course Enrollment Update')
   end
 end

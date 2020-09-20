@@ -55,12 +55,13 @@ class PurchasesController < ApplicationController
             @errors.append @purchase.errors
           else
             @compiled.append @purchase
+            message = PurchaseMailer.enrollment_email(cart_item.section.teacher, current_user, cart_item.section).deliver!
             cart_item.destroy
           end
         end
 
         if @compiled.any?
-          message = StudentMailer.purchase_email(current_user_auth, @compiled).deliver!
+          message = PurchaseMailer.purchase_email(current_user_auth, @compiled).deliver!
         end
 
         unless @errors.any?
@@ -91,7 +92,7 @@ class PurchasesController < ApplicationController
   def generate_otp
     session[:secret_key] = ROTP::Base32.random
     totp = ROTP::TOTP.new(session[:secret_key])
-    message = StudentMailer.otp_email(current_user_auth, totp.now).deliver!
+    message = PurchaseMailer.otp_email(current_user_auth, totp.now).deliver!
   end
 
   private
