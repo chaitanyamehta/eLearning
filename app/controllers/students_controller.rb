@@ -40,6 +40,7 @@ class StudentsController < ApplicationController
       if @student.save
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
+        message = WelcomeMailer.welcome_email(@student).deliver!
       else
         format.html { render :new }
         format.json { render json: @student.errors, status: :unprocessable_entity }
