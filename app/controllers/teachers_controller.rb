@@ -33,6 +33,7 @@ class TeachersController < ApplicationController
       if @teacher.save
         format.html { redirect_to @teacher, notice: 'Teacher was successfully created.' }
         format.json { render :show, status: :created, location: @teacher }
+        message = WelcomeMailer.welcome_email(@teacher).deliver!
       else
         format.html { render :new }
         format.json { render json: @teacher.errors, status: :unprocessable_entity }
