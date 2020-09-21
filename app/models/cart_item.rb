@@ -7,7 +7,7 @@ class CartItem < ApplicationRecord
   validate :section_is_not_deleted
 
   def course_is_already_in_cart
-    if CartItem.joins(:section).find_by('sections.course_id': section.course_id)
+    if CartItem.joins(:section).find_by('cart_id': cart.id, 'sections.course_id': section.course_id)
       errors.add(:course, "already exists in cart")
     end
   end
