@@ -22,8 +22,8 @@
         <td><%= course.price %></td>
         <td>
           <% section = @teacher.sections.find_by_course_id(course.id) %>
-          <% unless section.nil? %>
-            <strong>Registered</strong> |
+          <% unless section.nil? or section.is_deleted %>
+            <%= link_to 'Un-Register', section, method: :delete, data: { confirm: 'Are you sure?' } %>
             <%= link_to 'View Students', section_students_path(section) %>
           <% else %>
             <%= button_to 'Register', sections_path, params: { section: {course_id: course.id, teacher_id: @teacher.id}}, method: :post %>

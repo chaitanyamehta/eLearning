@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :feedbacks
   resources :purchases
-  resources :sections, only: [:create] do
+  resources :sections, only: [:create, :destroy] do
     get 'students', to: 'students#section_students', as: 'students'
   end
   resources :sessions, only: [:create]

@@ -19,7 +19,7 @@ class Course < ApplicationRecord
   end
 
   def active_sections
-    Section.joins(:teacher, :course).where('teachers.is_deleted': false, 'courses.id': id)
+    Section.where(is_deleted?: false)
   end
 
   def course_number_is_unique

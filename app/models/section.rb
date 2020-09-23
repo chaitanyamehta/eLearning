@@ -7,7 +7,7 @@ class Section < ApplicationRecord
 
   validates :course_id, uniqueness: { scope: :teacher_id }
 
-  def is_deleted
-    teacher.is_deleted or course.is_deleted
+  def mark_deleted
+    update_attribute(:is_deleted, true)
   end
 end
