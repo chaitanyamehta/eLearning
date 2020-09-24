@@ -21,8 +21,8 @@
         <td><%= course.area %></td>
         <td><%= course.price %></td>
         <td>
-          <% section = @teacher.sections.find_by_course_id(course.id) %>
-          <% unless section.nil? or section.is_deleted %>
+          <% section = @teacher.sections.find_by('course_id': course.id, is_deleted: false) %>
+          <% unless section.nil? %>
             <%= link_to 'Un-Register', section, method: :delete, data: { confirm: 'Are you sure?' } %>
             <%= link_to 'View Students', section_students_path(section) %>
           <% else %>
