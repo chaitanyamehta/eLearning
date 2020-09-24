@@ -12,7 +12,7 @@ class Section < ApplicationRecord
   end
 
   def course_already_enrolled
-    if Section.joins(:teacher).find_by('teacher_id': teacher.id, 'is_deleted': false)
+    if Section.find_by('course_id': course.id, 'teacher_id': teacher.id, 'is_deleted': false)
       errors.add(:course, "has already been enrolled")
     end
   end
