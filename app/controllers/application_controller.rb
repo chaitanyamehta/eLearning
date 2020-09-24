@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   NOT_AUTHORIZED = 'Not Authorized: Action could not be performed'
-
+  ADMIN_NOT_AUTHORIZED = 'Not Authorized: Administrators cannot add credit cards or make purchases on behalf of a student.'
   before_action :require_login
   helper_method :logged_in_user_auth
   helper_method :current_user_auth
@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_student_login
-    redirect_to home_url, notice: NOT_AUTHORIZED unless is_student_login?
+    redirect_to home_url, notice: ADMIN_NOT_AUTHORIZED unless is_student_login?
   end
   
   def is_admin?

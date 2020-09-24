@@ -5,9 +5,15 @@ class Section < ApplicationRecord
   has_many :feedbacks
   has_many :students, through: :purchases
 
-  validates :course_id, uniqueness: { scope: :teacher_id }
+  validate :course_already_enrolled
 
-  def is_deleted
-    teacher.is_deleted or course.is_deleted
+  def mark_deleted
+    update_attribute(:is_deleted, true)
+  end
+
+  def course_already_enrolled
+    if Section.find_by('course_id': course.id, 'teacher_id': teacher.id, 'is_deleted': false)
+      errors.add(:course, "has already been enrolled")
+    end
   end
 end

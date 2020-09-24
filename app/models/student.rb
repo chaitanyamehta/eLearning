@@ -22,6 +22,6 @@ class Student < User
   end  
 
   def enrolled_courses
-    Course.joins(sections: [{purchases: :student}, :teacher]).where('purchases.student_id': id, 'courses.is_deleted': false, 'teachers.is_deleted': false)
+    Course.joins(sections: [{purchases: :student}]).where('purchases.student_id': id, 'sections.is_deleted': false)
   end
 end

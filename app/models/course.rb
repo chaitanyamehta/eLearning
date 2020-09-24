@@ -12,6 +12,7 @@ class Course < ApplicationRecord
 
   def mark_deleted
     update_attribute(:is_deleted, true)
+    sections.each { |s| s.mark_deleted }
   end
 
   def self.active_courses
@@ -19,7 +20,7 @@ class Course < ApplicationRecord
   end
 
   def active_sections
-    Section.joins(:teacher, :course).where('teachers.is_deleted': false, 'courses.id': id)
+    Section.where(is_deleted: false, course_id: id)
   end
 
   def course_number_is_unique
