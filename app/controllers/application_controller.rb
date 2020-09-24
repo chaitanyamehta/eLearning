@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def logged_in_user_auth
     if session[:user_auth_id]
-      @logged_in_user_auth ||= UserAuth.find(session[:user_auth_id])
+      @logged_in_user_auth ||= UserAuth.find_by_id(session[:user_auth_id])
     end
   end
 
@@ -53,7 +53,12 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    redirect_to login_url unless logged_in?
+    is_loged_in = logged_in?
+    redirect_to login_url unless is_loged_in
+    if is_loged_in and logged_in_user_auth.nil?
+      clear_session
+      redirect_to login_url, notice: "Oops, Your account was deleted."
+    end
   end
 
   def require_admin
@@ -94,5 +99,10 @@ class ApplicationController < ActionController::Base
 
   def is_student_login?
     logged_in_user_type == 'Student'
+  end
+
+  def clear_session
+    session[:user_auth_id] = nil;
+    session[:impersonate_auth_id] = nil;
   end
 end

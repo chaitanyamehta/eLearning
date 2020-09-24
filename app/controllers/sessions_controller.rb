@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   end
   
   def create
-    user_auth = UserAuth.find_by_email(params[:email])
+    user_auth = UserAuth.find_by("LOWER(email) = ?", params[:email].downcase)
     if user_auth && user_auth.authenticate(params[:password])
       session[:user_auth_id] = user_auth.id
       session[:impersonate_auth_id] = nil
@@ -30,8 +30,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_auth_id] = nil
-    session[:impersonate_auth_id] = nil
+    clear_session
     redirect_to root_url, notice: "Logged out!"
   end
 
