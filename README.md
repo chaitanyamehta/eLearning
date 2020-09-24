@@ -4,7 +4,7 @@
 Initially, the application has one account created:  the Administrator.  Log in as the Administrator with the email "admin@admin.com" and the password "admin".
 ### Creating Teachers
 Navigate to "Teachers" from the home page.  Create as many teachers as needed.  Each time a Teacher is created, the provided email address will receive a confirmation email.  Then return to "Home", navigate to "Courses", and create as many courses as needed.
-###Registering Teachers for Courses
+### Registering Teachers for Courses
 To register teachers for courses, log in as each of the teacher accounts that were just ceated, navigate to "Courses" and click "Register" on all applicable courses.
 ### Creating Students
 Student accounts can be created at any time from the login page by clicking "Sign up as Student."  Each time a Student is created, the provided email address will receive a confirmation email.  Once the account has been created, the student can login and navigate to "Edit Profile" and click "Add a Credit Card."  
@@ -14,7 +14,7 @@ Navigate to "Courses" and click "Add to Cart" on any applicable courses.  Note t
 To create a feedback for a course, return to "Home" and navigate to "Feedbacks."  Select the teacher and course to review, enter the review, and click "Submit."  Teachers and Administrators can view feedbacks by navigating to "Feedbacks" from their respective home pages.
 ### Impersonation
 The Administrator has the added ability to impersonate any user by navigating to "Teachers" or "Students" and clicking "Impersonate" next to a specific user.  They will have all functionality of the account type they are impersonating.
-###Corner Cases
+### Corner Cases
 * Administrators can register teachers for a course, but cannot purchase a course for students.
 * If a teacher is deleted, the associated class gets removed from the students view.
 * The purchase history and feedback will remain intact even if the student or teacher is deleted.
