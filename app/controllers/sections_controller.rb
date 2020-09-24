@@ -56,7 +56,7 @@ class SectionsController < ApplicationController
   def destroy
     @section.mark_deleted
     respond_to do |format|
-      format.html { redirect_to sections_url, notice: 'Section was successfully destroyed.' }
+      format.html { redirect_to courses_url, notice: 'Section was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

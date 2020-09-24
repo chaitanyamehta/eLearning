@@ -3,7 +3,7 @@ class CartItem < ApplicationRecord
   belongs_to :section
   
   validate :course_is_already_in_cart
-  validate :course_is_already_purchased
+  #validate :course_is_already_purchased
   validate :section_is_not_deleted
 
   def course_is_already_in_cart
@@ -22,12 +22,5 @@ class CartItem < ApplicationRecord
     if section.is_deleted
       errors.add(:course, "#{section.course.course_number} is not available or no longer being taught by #{section.teacher.name}")
     end
-=begin
-    if section.course.is_deleted
-      errors.add(:course, "#{section.course.course_number} has been deleted")
-    elsif section.teacher.is_deleted
-      errors.add(:course, "is no longer being taught by #{section.teacher.name}")
-    end
-=end
   end
 end
