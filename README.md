@@ -22,4 +22,4 @@ The Administrator has the added ability to impersonate any user by navigating to
 * Students and Teachers cannot drop courses.
 
 ## Test Cases
-Test cases for course model have been written using RSpec. Type `rspec` in terminal to run them.
+Test cases for course model and controller have been written using RSpec. Type `rspec` in terminal to run them.
