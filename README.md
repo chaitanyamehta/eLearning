@@ -20,3 +20,6 @@ The Administrator has the added ability to impersonate any user by navigating to
 * The purchase history and feedback will remain intact even if the student or teacher is deleted.
 * Students, Teachers, and Courses will be restricted from updating their major or discipline.
 * Students and Teachers cannot drop courses.
+
+## Test Cases
+Test cases for course model have been written using RSpec. Type `rspec` in terminal to run them.
