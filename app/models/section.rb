@@ -5,7 +5,7 @@ class Section < ApplicationRecord
   has_many :feedbacks
   has_many :students, through: :purchases
 
-  validates :course_id, uniqueness: { scope: :teacher_id }
+  validates :course_id, presence: true #, uniqueness: { scope: :teacher_id }
 
   def mark_deleted
     update_attribute(:is_deleted, true)
