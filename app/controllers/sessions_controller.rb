@@ -30,8 +30,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_auth_id] = nil
-    session[:impersonate_auth_id] = nil
+    clear_session
     redirect_to root_url, notice: "Logged out!"
   end
 
