@@ -12,6 +12,7 @@ class Course < ApplicationRecord
 
   def mark_deleted
     update_attribute(:is_deleted, true)
+    sections.each { |s| s.mark_deleted }
   end
 
   def self.active_courses

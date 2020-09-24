@@ -3,7 +3,7 @@ class CartItem < ApplicationRecord
   belongs_to :section
   
   validate :course_is_already_in_cart
-  #validate :course_is_already_purchased
+  validate :course_is_already_purchased
   validate :section_is_not_deleted
 
   def course_is_already_in_cart
@@ -13,7 +13,7 @@ class CartItem < ApplicationRecord
   end
 
   def course_is_already_purchased
-    if Purchase.joins(section: :teacher).find_by('student_id': cart.student_id, 'sections.course_id': section.course_id, 'sections.is_deleted': false)
+    if Purchase.joins(:section).find_by('student_id': cart.student_id, 'sections.course_id': section.course_id, 'sections.is_deleted': false)
       errors.add(:course, "has already been purchased")
     end
   end

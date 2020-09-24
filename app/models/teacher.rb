@@ -7,6 +7,7 @@ class Teacher < User
   def mark_deleted
     update_attribute(:is_deleted, true)
     user_auth.destroy
+    sections.each { |s| s.mark_deleted }
   end
 
   def self.active_teachers
