@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Course, type: :model do
-  subject {
-    described_class.new(course_number: "Anything",
-                        name: "Anything",
-                        area: "Anything",
-                        price: "Anything")
-  }
+  subject { build(:course) }
 
+  it "is valid with all valid attributes" do
+    expect(subject).to be_valid
+  end
 
   it "is not valid without a course_number" do
     subject.course_number = nil
@@ -30,7 +28,7 @@ RSpec.describe Course, type: :model do
   end
 
   it "is not valid with price less than 0" do
-    subject.price <0
+    subject.price = -1
     expect(subject).to_not be_valid
   end
 end
