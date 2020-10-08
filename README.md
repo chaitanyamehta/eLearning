@@ -1,4 +1,15 @@
-# README
+# eLearning & mentoring system
+
+### Prerequisites
+* Ruby 2.7.0
+
+### How to Run
+In the command line console:
+1. `bundle install`
+2. `rake db:migrate`
+3. `rake db:seed`
+4. `rails s`
+5. Go to `localhost:3000` or `http://127.0.0.1:3000/`
 
 ### Out-of-the-Box Functionality
 Initially, the application has one account created:  the Administrator.  Log in as the Administrator with the email "admin@admin.com" and the password "admin".
