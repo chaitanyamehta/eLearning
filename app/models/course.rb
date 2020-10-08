@@ -24,7 +24,7 @@ class Course < ApplicationRecord
   end
 
   def course_number_is_unique
-    if Course.find_by(course_number: course_number, is_deleted: false)
+    if Course.where.not(id: id).find_by(course_number: course_number, is_deleted: false)
       errors.add(:course_number, "has already been taken")
     end
   end
